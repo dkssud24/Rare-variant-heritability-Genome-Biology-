@@ -63,14 +63,8 @@ Covariates:
 - `06_PGS_adjusted_models.sh`  
   - GCTA and BOLT-REML analyses with PGS adjustment  
 
-- `07_random30k_20rep.sh`  
-  - Random sampling of 30,000 individuals (20 replicates)  
-
-- `08_common_rare_PCA.sh`  
-  - PCA computation for both rare and common variants  
-
-- `09_mGRM_analysis.sh`  
-  - Multi-GRM (joint rare + common) REML analysis  
+- `07_mGRM_pipeline.sh`  
+  - Random sampling (30,000 × 20 replicates), PCA computation (rare and common), and multi-GRM REML analysis
 
 ---
 
