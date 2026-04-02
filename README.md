@@ -8,19 +8,19 @@ This repository contains scripts used to estimate rare-variant heritability and 
 
 ### 1. Rare variant heritability estimation
 
-- LD-independent rare variants were defined in set A using LD score calculation
-- Principal components (PCA) were computed from rare variants
-- Genetic relationship matrices (GRMs) were constructed using rare variants
+- LD-independent rare variants were defined in set A using LD score calculation  
+- Genetic relationship matrices (GRMs) were constructed for A, B, and C variant sets  
+- Principal components (PCA) were computed from rare variants  
 - Heritability was estimated using:
   - GCTA (GREML)
-  - BOLT-REML
+  - BOLT-REML  
 
 ---
 
 ### 2. PGS-adjusted sensitivity analysis
 
-- Polygenic risk scores (PGS) derived from common variants were included as covariates
-- The attenuation of rare-variant heritability was evaluated
+- Polygenic risk scores (PGS) derived from common variants were included as covariates  
+- The attenuation of rare-variant heritability was evaluated  
 
 ---
 
@@ -28,60 +28,65 @@ This repository contains scripts used to estimate rare-variant heritability and 
 
 To assess potential confounding due to LD between rare and common variants:
 
-- 30,000 individuals were randomly sampled (20 replicates)
+- 30,000 individuals were randomly sampled (20 replicates)  
 - For each replicate:
-  - Rare and common PLINK datasets were generated
-  - GRMs were constructed separately for rare and common variants
-  - PCA was computed separately for rare and common variants
-  - Multi-component REML analysis was performed using GCTA
+  - Rare and common PLINK datasets were generated  
+  - GRMs were constructed separately for rare and common variants  
+  - PCA was computed separately for rare and common variants  
+  - Multi-component REML analysis was performed using GCTA  
 
 Covariates:
-- Age
-- Sex
-- First 10 PCs from rare variants
-- First 10 PCs from common variants
+- Age  
+- Sex  
+- First 10 PCs from rare variants  
+- First 10 PCs from common variants  
 
 ---
 
 ## Scripts
 
-### Main heritability analysis
+- `01_ldscore_Aset.sh`  
+  - LD score calculation and definition of LD-independent rare variants  
 
-- GCTA REML analysis using rare variant GRM
-- BOLT-REML analysis using merged genotype data
+- `02_make_ABC_GRM.sh`  
+  - Construction of GRMs for A, B, and C sets  
+
+- `03_rare_PCA_each_set.sh`  
+  - PCA computation using rare variants  
+
+- `04_GCTA_GREML.sh`  
+  - Heritability estimation using GCTA  
+
+- `05_BOLT_REML.sh`  
+  - Heritability estimation using BOLT-REML  
+
+- `06_PGS_adjusted_models.sh`  
+  - GCTA and BOLT-REML analyses with PGS adjustment  
+
+- `07_random30k_20rep.sh`  
+  - Random sampling of 30,000 individuals (20 replicates)  
+
+- `08_common_rare_PCA.sh`  
+  - PCA computation for both rare and common variants  
+
+- `09_mGRM_analysis.sh`  
+  - Multi-GRM (joint rare + common) REML analysis  
 
 ---
 
-### Multi-GRM pipeline
-
-- `step1.makebed.sh`
-  - Generate PLINK bed files for rare and common variants in each subset
-
-- `step2.make_grm.sh`
-  - Construct GRMs for rare and common variants
-
-- `step3.pca.rare.common.sh`
-  - Perform LD pruning and PCA for common variants
-
-- `estimate_pca_rare.sh`
-  - Perform PCA for rare variants
-
-- `step4.run.rare.common.sh`
-  - Run multi-component REML (multi-GRM) for each phenotype
-
 ## Software
 
-- PLINK2
-- GCTA v1.94
-- BOLT-LMM v2.4.1
+- PLINK2  
+- GCTA v1.94  
+- BOLT-LMM v2.4.1  
 
 ---
 
 ## Notes
 
-- UK Biobank data are not publicly available
-- Scripts assume preprocessed genotype and phenotype files
-- File paths should be modified according to local environment
+- UK Biobank data are not publicly available  
+- Scripts assume preprocessed genotype and phenotype files  
+- File paths should be modified according to the local environment  
 
 ---
 
